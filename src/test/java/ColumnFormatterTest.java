@@ -11,7 +11,7 @@ public class ColumnFormatterTest {
     private ColumnFormatter columnFormatter;
 
     @Before
-    public void name() {
+    public void setUp() {
         columnFormatter = new ColumnFormatter();
     }
 
@@ -26,4 +26,17 @@ public class ColumnFormatterTest {
 
         assertThat(bookRecord, is(formattedBookRecord));
     }
+
+    @Test
+    public void shouldReturnFormattedHeader() {
+        String formattedHeader = String.format("%-50s", "Title");
+        formattedHeader += String.format("%-25s", "Author");
+        formattedHeader += "Year Published";
+        formattedHeader += "\n";
+
+        String header = columnFormatter.returnFormattedHeader();
+        assertThat(header, is(formattedHeader));
+    }
+
+
 }

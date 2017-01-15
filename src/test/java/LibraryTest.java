@@ -19,12 +19,15 @@ public class LibraryTest {
     private Book bookOne;
     private Book bookTwo;
     private ColumnFormatter columnFormatter;
+    private PrintStream printStream;
+
 
     @Before
     public void setUp() throws Exception {
         columnFormatter = mock(ColumnFormatter.class);
+        printStream = mock(PrintStream.class);
         bookList = new ArrayList<Book>();
-        library = new Library(bookList);
+        library = new Library(bookList, columnFormatter, printStream);
         bookOne = mock(Book.class);
         bookTwo = mock(Book.class);
     }
@@ -49,10 +52,9 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldDisplayColumnHeaderBeforeBookList() {
+    public void shouldCallReturnFormattedHeader(){
         library.displayAllBooks();
-
-        verify(columnFormatter).formatColumns("Title", "Author", "Year");
-
+        verify(columnFormatter).returnFormattedHeader();
     }
+
 }

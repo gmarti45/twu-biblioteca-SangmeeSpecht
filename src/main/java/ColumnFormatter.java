@@ -9,4 +9,9 @@ public class ColumnFormatter {
         recordRow += "\n";
         return recordRow;
     }
+
+
+    public String returnFormattedHeader() {
+        return formatColumns("Title", "Author","Year Published");
+    }
 }
