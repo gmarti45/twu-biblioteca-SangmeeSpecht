@@ -26,7 +26,24 @@ public class Menu {
     public String askForOption() throws IOException {
         printStream.println("Enter an option number:");
         String optionChoice = bufferedReader.readLine();
+
+        if(isValidInput(optionChoice) == false){
+            displayInvalidInput();
+        }
+
         return optionChoice;
+    }
+
+    public void displayInvalidInput() throws IOException {
+        printStream.println("Select a valid option!");
+    }
+
+    public Boolean isValidInput(String userInput) throws IOException {
+        if(userInput == "1") {
+            return true;
+        }
+        askForOption();
+        return false;
     }
 }
 

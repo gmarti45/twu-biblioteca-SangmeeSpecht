@@ -7,9 +7,7 @@ import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by sspecht on 1/15/17.
@@ -51,5 +49,32 @@ public class MenuTest {
 
     }
 
+    @Test
+    public void shouldDisplayInvalidInputWhenUserSelectsAnOptionNotOnTheMenu() throws IOException {
+        menu.displayInvalidInput();
+
+        verify(printStream).println("Select a valid option!");
+    }
+
+    @Test
+    public void shouldReturnFalseWhenUserEntersInvalidInput() throws IOException {
+        Boolean userInput = menu.isValidInput("INVALID");
+
+        assertThat(userInput, is(false));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenUserEntersValidInput() throws IOException {
+        Boolean userInput = menu.isValidInput("1");
+
+        assertThat(userInput, is(true));
+    }
+
+    @Test
+    public void shouldAskUserForInputAgainIfInvalidInputEntered() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2","1");
+        menu.askForOption();
+        verify(bufferedReader,times(2)).readLine();
+    }
 
 }
