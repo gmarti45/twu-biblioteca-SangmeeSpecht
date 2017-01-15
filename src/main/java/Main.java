@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +8,11 @@ import java.util.List;
  * Created by sspecht on 1/11/17.
  */
 public class Main {
+
     public static void main(String[] args) {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         PrintStream printStream = new PrintStream(System.out);
-        Menu menu = new Menu(printStream);
+        Menu menu = new Menu(printStream, bufferedReader);
         ColumnFormatter columnFormatter = new ColumnFormatter();
         Book bookOne = new Book("Harry Potter", "Jk", "1999", printStream, columnFormatter);
         Book bookTwo = new Book("The Hobbit", "JRR", "1965", printStream, columnFormatter);
