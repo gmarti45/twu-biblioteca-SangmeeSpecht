@@ -2,16 +2,20 @@
  * Created by sspecht on 1/12/17.
  */
 public class Application {
+    private final Menu menu;
     private Welcome welcome;
     private Library library;
 
-    public Application(Welcome welcome, Library library) {
+    public Application(Welcome welcome, Library library, Menu menu) {
         this.welcome = welcome;
         this.library = library;
+        this.menu = menu;
     }
 
     public void start(){
         welcome.displayWelcomeMessage();
-        library.displayAllBooks();
+        //library.displayAllBooks();
+        menu.listOptions();
+
     }
 }

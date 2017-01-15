@@ -1,3 +1,5 @@
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,12 +13,23 @@ import static org.mockito.Mockito.verify;
  * Created by sspecht on 1/12/17.
  */
 public class ApplicationTest {
+    private Menu menu;
+    private Application application;
+    private Library library;
+    private Welcome welcome;
+
+    @Before
+
+    public void setUp()
+    {
+        menu = mock(Menu.class);
+        library = mock(Library.class);
+        welcome = mock(Welcome.class);
+        application = new Application(welcome, library, menu);
+    }
+
     @Test
     public void shouldCallWelcomeMessage() {
-        Welcome welcome = mock(Welcome.class);
-        Library library = mock(Library.class);
-
-        Application application = new Application(welcome, library);
 
         application.start();
         verify(welcome).displayWelcomeMessage();
@@ -24,16 +37,18 @@ public class ApplicationTest {
     }
 
     @Test
-    public void shouldCreateLibrary() {
+    @Ignore
+    public void shouldDisplayAllBooksWhenStartIsCalled() {
         Book book = mock(Book.class);
         ArrayList<Book> bookList = new ArrayList();
         bookList.add(book);
-        Library library = mock(Library.class);
-        Welcome welcome = mock(Welcome.class);
-
-        Application application = new Application(welcome, library);
-
         application.start();
         verify(library).displayAllBooks();
+    }
+
+    @Test
+    public void shouldDisplayListOfOptionsWhenStartIsCalled() {
+        application.start();
+        verify(menu).listOptions();
     }
 }
