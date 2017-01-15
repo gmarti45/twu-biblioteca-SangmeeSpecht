@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -29,7 +30,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void shouldCallWelcomeMessage() {
+    public void shouldCallWelcomeMessage() throws IOException {
 
         application.start();
         verify(welcome).displayWelcomeMessage();
@@ -38,7 +39,7 @@ public class ApplicationTest {
 
     @Test
     @Ignore
-    public void shouldDisplayAllBooksWhenStartIsCalled() {
+    public void shouldDisplayAllBooksWhenStartIsCalled() throws IOException {
         Book book = mock(Book.class);
         ArrayList<Book> bookList = new ArrayList();
         bookList.add(book);
@@ -47,8 +48,14 @@ public class ApplicationTest {
     }
 
     @Test
-    public void shouldDisplayListOfOptionsWhenStartIsCalled() {
+    public void shouldDisplayListOfOptionsWhenStartIsCalled() throws IOException {
         application.start();
         verify(menu).listOptions();
+    }
+
+    @Test
+    public void shouldAskUserForMenuNumberWhenStartIsCalled() throws Exception {
+        application.start();
+        verify(menu).askForOption();
     }
 }

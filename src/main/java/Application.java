@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Created by sspecht on 1/12/17.
  */
@@ -12,10 +14,11 @@ public class Application {
         this.menu = menu;
     }
 
-    public void start(){
+    public void start() throws IOException {
         welcome.displayWelcomeMessage();
         //library.displayAllBooks();
         menu.listOptions();
+        menu.askForOption();
 
     }
 }
