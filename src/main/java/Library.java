@@ -12,9 +12,13 @@ public class Library {
     }
 
     public void displayAllBooks() {
+
         for (Book book : booklist) {
             book.displayInformation();
         }
-
     }
+
+
+
+
 }

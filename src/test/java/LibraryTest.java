@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -12,20 +13,45 @@ import static org.mockito.Mockito.verify;
  */
 public class LibraryTest {
 
-    @Test
-    public void shouldDisplayAListOfBooks(){
-        PrintStream printStream = mock(PrintStream.class);
-        Book bookOne = mock(Book.class);
+    private ArrayList<Book> bookList;
+    private Library library;
+    private Book bookOne;
+    private Book bookTwo;
+    private ColumnFormatter columnFormatter;
 
-        ArrayList <Book> bookList = new ArrayList<Book>();
-        bookList.add(bookOne);
-
-        Library library = new Library(bookList);
-        library.displayAllBooks();
-        verify(bookOne).displayInformation();
-
-
+    @Before
+    public void setUp() throws Exception {
+        columnFormatter = mock(ColumnFormatter.class);
+        bookList = new ArrayList<Book>();
+        library = new Library(bookList);
+        bookOne = mock(Book.class);
+        bookTwo = mock(Book.class);
     }
 
+    @Test
+    public void shouldDisplayAListOfOneBook(){
+        bookList.add(bookOne);
 
+        library.displayAllBooks();
+
+        verify(bookOne).displayInformation();
+    }
+
+    @Test
+    public void shouldDisplayAListOfManyBooks(){
+        bookList.add(bookOne);
+        bookList.add(bookTwo);
+
+        library.displayAllBooks();
+
+        verify(bookTwo).displayInformation();
+    }
+
+    @Test
+    public void shouldDisplayColumnHeaderBeforeBookList() {
+        library.displayAllBooks();
+
+        verify(columnFormatter).formatColumns("Title", "Author", "Year");
+
+    }
 }

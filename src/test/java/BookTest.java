@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -18,9 +19,6 @@ public class BookTest {
         verify(printStream).println("Harry Potter\nJK Rowling\n1995\n");
     }
 
-    @Test
-    public void shouldCutTitle(){
-        verify(printstream).cutTitle("shortenedTitleName");
-    }
+
 
 }
