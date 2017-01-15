@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sspecht on 1/11/17.
@@ -9,7 +10,7 @@ public class Main {
         PrintStream printStream = new PrintStream(System.out);
         Book bookOne = new Book("Harry Potter", "Jk", "1999", printStream);
         Book bookTwo = new Book("The Hobbit", "JRR", "1965", printStream);
-        ArrayList<Book> bookList = new ArrayList();
+        List<Book> bookList = new ArrayList<Book>();
         bookList.add(bookOne);
         bookList.add(bookTwo);
 
