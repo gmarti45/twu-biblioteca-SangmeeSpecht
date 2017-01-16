@@ -6,19 +6,16 @@ import java.io.IOException;
 public class Application {
     private Menu menu;
     private Welcome welcome;
-    private Library library;
 
     public Application(Welcome welcome, Library library, Menu menu) {
         this.welcome = welcome;
-        this.library = library;
         this.menu = menu;
     }
 
     public void start() throws IOException {
         welcome.displayWelcomeMessage();
-        //library.displayAllBooks();
         menu.listOptions();
-        menu.askForOption();
+        menu.selectOption();
 
     }
 }

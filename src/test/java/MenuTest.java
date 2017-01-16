@@ -35,7 +35,7 @@ public class MenuTest {
     public void shouldListOptions()
     {
         menu.listOptions();
-        verify(printStream).println("Options\n1. List Books");
+        verify(printStream).println("Options\n1. List Books\n2. Quit");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class MenuTest {
 
     @Test
     public void shouldAskUserForInputAgainIfInvalidInputEntered() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("2").thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("9").thenReturn("1");
         menu.askForOption();
         verify(bufferedReader,times(2)).readLine();
     }
@@ -86,6 +86,13 @@ public class MenuTest {
         when(bufferedReader.readLine()).thenReturn("1");
         menu.selectOption();
         verify(library).displayAllBooks();
+    }
+
+    @Test
+    public void shouldQuitWhenUserEntersOption2() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2");
+        menu.selectOption();
+        verify(printStream).println("Bye!");
     }
 
 }

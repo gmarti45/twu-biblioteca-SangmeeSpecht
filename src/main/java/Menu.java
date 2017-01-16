@@ -20,7 +20,9 @@ public class Menu {
     public void listOptions() {
         String listOfOptions;
         listOfOptions = "Options\n";
-        listOfOptions += "1. List Books";
+        listOfOptions += "1. List Books\n";
+        listOfOptions += "2. Quit";
+
 
 
         printStream.println(listOfOptions);
@@ -45,14 +47,23 @@ public class Menu {
     }
 
     public Boolean isValidInput(String userInput) throws IOException {
-        if(userInput.equals("1")) {
+        if(userInput.equals("1") || userInput.equals("2")) {
             return true;
         }
         return false;
     }
 
-    public void selectOption() {
-        library.displayAllBooks();
+    public void selectOption() throws IOException {
+        String option = askForOption();
+        if(option.equals("1"))
+        {
+            library.displayAllBooks();
+        }
+        else if(option.equals("2"))
+        {
+            printStream.println("Bye!");
+        }
+
 
     }
 }
