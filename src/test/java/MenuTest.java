@@ -95,4 +95,11 @@ public class MenuTest {
         verify(printStream).println("Bye!");
     }
 
+    @Test
+    public void shouldContinueDisplayingOptionsUntilOption2Sleceted() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("2");
+        menu.selectOption();
+        verify(bufferedReader,times(2)).readLine();
+    }
+
 }

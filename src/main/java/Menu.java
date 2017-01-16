@@ -56,16 +56,21 @@ public class Menu {
     }
 
     public void selectOption() throws IOException {
-        String optionSelected = askForOption();
-        Map<String, Command> commandMap = new HashMap<String, Command>();
-        commandMap.put("1", new DisplayAllBooksCommand(library));
-        commandMap.put("2", new QuitCommand(printStream));
-        if(commandMap.containsKey(optionSelected))
-        {
-            Command command = commandMap.get(optionSelected);
-            command.execute();
+        String optionSelected = "";
+        do{
+            optionSelected = askForOption();
+            Map<String, Command> commandMap = new HashMap<String, Command>();
+            commandMap.put("1", new DisplayAllBooksCommand(library));
+            commandMap.put("2", new QuitCommand(printStream));
 
+            if(commandMap.containsKey(optionSelected))
+            {
+                Command command = commandMap.get(optionSelected);
+                command.execute();
+
+            }
         }
+        while(!optionSelected.equals("2"));
 
     }
 }
