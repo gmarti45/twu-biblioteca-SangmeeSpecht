@@ -4,7 +4,7 @@ import java.io.IOException;
  * Created by sspecht on 1/12/17.
  */
 public class Application {
-    private final Menu menu;
+    private Menu menu;
     private Welcome welcome;
     private Library library;
 

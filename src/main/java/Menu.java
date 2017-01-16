@@ -27,8 +27,11 @@ public class Menu {
         printStream.println("Enter an option number:");
         String optionChoice = bufferedReader.readLine();
 
-        if(isValidInput(optionChoice) == false){
+        while(isValidInput(optionChoice) == false)
+        {
             displayInvalidInput();
+            printStream.println("Enter an option number:");
+            optionChoice = bufferedReader.readLine();
         }
 
         return optionChoice;
@@ -39,10 +42,9 @@ public class Menu {
     }
 
     public Boolean isValidInput(String userInput) throws IOException {
-        if(userInput == "1") {
+        if(userInput.equals("1")) {
             return true;
         }
-        askForOption();
         return false;
     }
 }
