@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by sspecht on 1/15/17.
@@ -54,16 +56,16 @@ public class Menu {
     }
 
     public void selectOption() throws IOException {
-        String option = askForOption();
-        if(option.equals("1"))
+        String optionSelected = askForOption();
+        Map<String, Command> commandMap = new HashMap<String, Command>();
+        commandMap.put("1", new DisplayAllBooksCommand(library));
+        commandMap.put("2", new QuitCommand(printStream));
+        if(commandMap.containsKey(optionSelected))
         {
-            library.displayAllBooks();
-        }
-        else if(option.equals("2"))
-        {
-            printStream.println("Bye!");
-        }
+            Command command = commandMap.get(optionSelected);
+            command.execute();
 
+        }
 
     }
 }
