@@ -1,5 +1,4 @@
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -18,6 +17,7 @@ public class MenuTest {
     private PrintStream printStream;
     private BufferedReader bufferedReader;
     private Library library;
+    private Book book;
 
 
     @Before
@@ -26,6 +26,7 @@ public class MenuTest {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
         library = mock(Library.class);
+        book = mock(Book.class);
         menu = new Menu(printStream, bufferedReader, library);
 
     }
@@ -35,7 +36,11 @@ public class MenuTest {
     public void shouldListOptions()
     {
         menu.listOptions();
-        verify(printStream).println("Options\n1. List Books\n2. Quit");
+        verify(printStream).println(
+                "Options\n" +
+                "1. List Books\n" +
+                "2. Checkout Book\n" +
+                "0. Quit");
     }
 
     @Test
@@ -83,23 +88,25 @@ public class MenuTest {
 
     @Test
     public void shouldListBooksWhenUserEntersOption1() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1");
+        when(bufferedReader.readLine()).thenReturn("1").thenReturn("0");
         menu.selectOption();
         verify(library).displayAllBooks();
+
     }
 
     @Test
-    public void shouldQuitWhenUserEntersOption2() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("2");
+    public void shouldQuitWhenUserEntersOption0() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("0");
         menu.selectOption();
         verify(printStream).println("Bye!");
     }
 
     @Test
-    public void shouldContinueDisplayingOptionsUntilOption2Sleceted() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("1").thenReturn("2");
+    public void shouldRemoveBookWhenUserEntersOption2() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2").thenReturn("0");
         menu.selectOption();
-        verify(bufferedReader,times(2)).readLine();
+        verify(library).removeBook(book);
     }
+
 
 }

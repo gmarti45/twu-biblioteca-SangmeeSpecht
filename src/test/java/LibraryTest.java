@@ -57,4 +57,12 @@ public class LibraryTest {
         verify(columnFormatter).returnFormattedHeader();
     }
 
+    @Test
+    public void shouldRemoveBookOneFromLibrary(){
+        bookList.add(bookOne);
+        bookList.add(bookTwo);
+        library.removeBook(bookOne);
+        assertEquals(1, bookList.size());
+    }
+
 }

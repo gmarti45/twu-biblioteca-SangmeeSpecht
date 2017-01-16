@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sspecht on 1/15/17.
@@ -23,7 +22,8 @@ public class Menu {
         String listOfOptions;
         listOfOptions = "Options\n";
         listOfOptions += "1. List Books\n";
-        listOfOptions += "2. Quit";
+        listOfOptions += "2. Checkout Book\n";
+        listOfOptions += "0. Quit";
 
 
 
@@ -49,7 +49,9 @@ public class Menu {
     }
 
     public Boolean isValidInput(String userInput) throws IOException {
-        if(userInput.equals("1") || userInput.equals("2")) {
+        List<String> userInputs = new ArrayList<String>();
+        userInputs.addAll( Arrays.asList("1", "2","0") );
+        if(userInputs.contains(userInput)) {
             return true;
         }
         return false;
@@ -61,7 +63,8 @@ public class Menu {
             optionSelected = askForOption();
             Map<String, Command> commandMap = new HashMap<String, Command>();
             commandMap.put("1", new DisplayAllBooksCommand(library));
-            commandMap.put("2", new QuitCommand(printStream));
+            commandMap.put("2", new CheckoutBookCommand(library));
+            commandMap.put("0", new QuitCommand(printStream));
 
             if(commandMap.containsKey(optionSelected))
             {
@@ -70,7 +73,7 @@ public class Menu {
 
             }
         }
-        while(!optionSelected.equals("2"));
+        while(!optionSelected.equals("0"));
 
     }
 }
