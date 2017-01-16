@@ -6,13 +6,16 @@ import java.io.PrintStream;
  * Created by sspecht on 1/15/17.
  */
 public class Menu {
-    private final BufferedReader bufferedReader;
+    private  BufferedReader bufferedReader;
+    private  Library library;
     private PrintStream printStream;
 
-    public Menu(PrintStream printStream, BufferedReader bufferedReader) {
+    public Menu(PrintStream printStream, BufferedReader bufferedReader, Library library) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
+        this.library = library;
     }
+
 
     public void listOptions() {
         String listOfOptions;
@@ -46,6 +49,11 @@ public class Menu {
             return true;
         }
         return false;
+    }
+
+    public void selectOption() {
+        library.displayAllBooks();
+
     }
 }
 

@@ -13,16 +13,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         PrintStream printStream = new PrintStream(System.out);
-        Menu menu = new Menu(printStream, bufferedReader);
         ColumnFormatter columnFormatter = new ColumnFormatter();
+
+
         Book bookOne = new Book("Harry Potter", "Jk", "1999", printStream, columnFormatter);
         Book bookTwo = new Book("The Hobbit", "JRR", "1965", printStream, columnFormatter);
         List<Book> bookList = new ArrayList<Book>();
         bookList.add(bookOne);
         bookList.add(bookTwo);
 
-        Welcome welcome = new Welcome(printStream);
         Library library = new Library(bookList , columnFormatter , printStream);
+        Menu menu = new Menu(printStream, bufferedReader, library);
+        Welcome welcome = new Welcome(printStream);
 
         Application application = new Application(welcome, library, menu);
         application.start();

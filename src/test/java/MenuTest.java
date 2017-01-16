@@ -17,6 +17,7 @@ public class MenuTest {
     private Menu menu;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
+    private Library library;
 
 
     @Before
@@ -24,7 +25,8 @@ public class MenuTest {
     {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
-        menu = new Menu(printStream, bufferedReader);
+        library = mock(Library.class);
+        menu = new Menu(printStream, bufferedReader, library);
 
     }
 
@@ -77,6 +79,13 @@ public class MenuTest {
         when(bufferedReader.readLine()).thenReturn("2").thenReturn("1");
         menu.askForOption();
         verify(bufferedReader,times(2)).readLine();
+    }
+
+    @Test
+    public void shouldListBooksWhenUserEntersOption1() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("1");
+        menu.selectOption();
+        verify(library).displayAllBooks();
     }
 
 }
