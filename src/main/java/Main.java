@@ -3,7 +3,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sspecht on 1/11/17.
@@ -23,8 +25,17 @@ public class Main {
         bookList.add(bookTwo);
 
         Library library = new Library(bookList , columnFormatter , printStream);
-        Menu menu = new Menu(printStream, bufferedReader, library);
+
+        Map<String, Command> commandMap = new HashMap<String, Command>();
+        commandMap.put("1", new DisplayAllBooksCommand(library));
+        commandMap.put("2", new CheckoutBookCommand(library));
+        commandMap.put("0", new QuitCommand(printStream));
+
+
+        Menu menu = new Menu(printStream, bufferedReader, library, commandMap);
         Welcome welcome = new Welcome(printStream);
+
+
 
         Application application = new Application(welcome, library, menu);
         application.start();

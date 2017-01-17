@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -18,6 +20,10 @@ public class MenuTest {
     private BufferedReader bufferedReader;
     private Library library;
     private Book book;
+    private DisplayAllBooksCommand displayAllBooksCommand;
+    private QuitCommand quitCommand;
+    private CheckoutBookCommand checkoutBookCommand;
+    private Map<String, Command> commandMap;
 
 
     @Before
@@ -27,7 +33,16 @@ public class MenuTest {
         bufferedReader = mock(BufferedReader.class);
         library = mock(Library.class);
         book = mock(Book.class);
-        menu = new Menu(printStream, bufferedReader, library);
+        displayAllBooksCommand = mock(DisplayAllBooksCommand.class);
+        quitCommand = mock(QuitCommand.class);
+        checkoutBookCommand = mock(CheckoutBookCommand.class);
+        commandMap = new HashMap<String, Command>();
+        commandMap.put("1", displayAllBooksCommand);
+        commandMap.put("0", quitCommand);
+        commandMap.put("2", checkoutBookCommand);
+
+
+        menu = new Menu(printStream, bufferedReader, library, commandMap);
 
     }
 
@@ -90,7 +105,7 @@ public class MenuTest {
     public void shouldListBooksWhenUserEntersOption1() throws IOException {
         when(bufferedReader.readLine()).thenReturn("1").thenReturn("0");
         menu.selectOption();
-        verify(library).displayAllBooks();
+        verify(displayAllBooksCommand).execute();
 
     }
 
@@ -98,14 +113,14 @@ public class MenuTest {
     public void shouldQuitWhenUserEntersOption0() throws IOException {
         when(bufferedReader.readLine()).thenReturn("0");
         menu.selectOption();
-        verify(printStream).println("Bye!");
+        verify(quitCommand).execute();
     }
 
     @Test
-    public void shouldRemoveBookWhenUserEntersOption2() throws IOException {
+    public void shouldAskForBookTitleWhenUserEntersOption2() throws IOException {
         when(bufferedReader.readLine()).thenReturn("2").thenReturn("0");
         menu.selectOption();
-        verify(library).removeBook(book);
+        verify(printStream).println("Type the title of the book you would like to check out:");
     }
 
 

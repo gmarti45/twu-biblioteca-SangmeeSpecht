@@ -9,7 +9,7 @@ public class CheckoutBookCommand implements Command {
     }
 
     public void execute() {
-        library.remove();
+
 
     }
 }

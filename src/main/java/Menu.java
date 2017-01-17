@@ -1,3 +1,4 @@
+import javax.activation.CommandMap;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -9,12 +10,14 @@ import java.util.*;
 public class Menu {
     private  BufferedReader bufferedReader;
     private  Library library;
+    private Map<String, Command> commandMap;
     private PrintStream printStream;
 
-    public Menu(PrintStream printStream, BufferedReader bufferedReader, Library library) {
+    public Menu(PrintStream printStream, BufferedReader bufferedReader, Library library, Map<String, Command> commandMap) {
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
         this.library = library;
+        this.commandMap = commandMap;
     }
 
 
@@ -59,18 +62,10 @@ public class Menu {
 
     public void selectOption() throws IOException {
         String optionSelected = "";
-        do{
+        do {
             optionSelected = askForOption();
-            Map<String, Command> commandMap = new HashMap<String, Command>();
-            commandMap.put("1", new DisplayAllBooksCommand(library));
-            commandMap.put("2", new CheckoutBookCommand(library));
-            commandMap.put("0", new QuitCommand(printStream));
-
-            if(commandMap.containsKey(optionSelected))
-            {
-                Command command = commandMap.get(optionSelected);
-                command.execute();
-
+            if(commandMap.containsKey(optionSelected)) {
+                commandMap.get(optionSelected).execute();
             }
         }
         while(!optionSelected.equals("0"));
