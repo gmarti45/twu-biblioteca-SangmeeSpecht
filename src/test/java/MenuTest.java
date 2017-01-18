@@ -18,8 +18,6 @@ public class MenuTest {
     private Menu menu;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
-    private Library library;
-    private Book book;
     private DisplayAllBooksCommand displayAllBooksCommand;
     private QuitCommand quitCommand;
     private CheckoutBookCommand checkoutBookCommand;
@@ -31,8 +29,6 @@ public class MenuTest {
     {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
-        library = mock(Library.class);
-        book = mock(Book.class);
         displayAllBooksCommand = mock(DisplayAllBooksCommand.class);
         quitCommand = mock(QuitCommand.class);
         checkoutBookCommand = mock(CheckoutBookCommand.class);
@@ -40,8 +36,6 @@ public class MenuTest {
         commandMap.put("1", displayAllBooksCommand);
         commandMap.put("0", quitCommand);
         commandMap.put("2", checkoutBookCommand);
-
-
         menu = new Menu(printStream, bufferedReader, library, commandMap);
 
     }
@@ -117,10 +111,10 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldAskForBookTitleWhenUserEntersOption2() throws IOException {
+    public void shouldAskForCheckoutBookWhenUserEntersOption2() throws IOException {
         when(bufferedReader.readLine()).thenReturn("2").thenReturn("0");
         menu.selectOption();
-        verify(printStream).println("Type the title of the book you would like to check out:");
+        verify(checkoutBookCommand).execute();
     }
 
 

@@ -28,7 +28,7 @@ public class Main {
 
         Map<String, Command> commandMap = new HashMap<String, Command>();
         commandMap.put("1", new DisplayAllBooksCommand(library));
-        commandMap.put("2", new CheckoutBookCommand(library));
+        //commandMap.put("2", new CheckoutBookCommand(library));
         commandMap.put("0", new QuitCommand(printStream));
 
 

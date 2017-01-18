@@ -52,12 +52,7 @@ public class Menu {
     }
 
     public Boolean isValidInput(String userInput) throws IOException {
-        List<String> userInputs = new ArrayList<String>();
-        userInputs.addAll( Arrays.asList("1", "2","0") );
-        if(userInputs.contains(userInput)) {
-            return true;
-        }
-        return false;
+        return commandMap.containsKey(userInput);
     }
 
     public void selectOption() throws IOException {
